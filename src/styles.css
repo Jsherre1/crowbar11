@@ -127,7 +127,7 @@ body {
 .toggle-icon-simple {
   width: 24px;
   height: 24px;
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
 }
 .toggle-track {
   width: 50px;
@@ -330,7 +330,7 @@ copyright-text {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 0 0.75rem;
   box-sizing: border-box;
   margin-bottom: 1.5rem;
   /* no max-width or margin:0 auto so it doesn’t center. */
@@ -815,3 +815,4 @@ copyright-text {
   align-items: center;
   justify-content: center;
 }
+
