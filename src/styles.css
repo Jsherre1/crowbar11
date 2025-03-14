@@ -330,7 +330,7 @@ copyright-text {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.75rem;
+  padding: 0 0.25rem;
   box-sizing: border-box;
   margin-bottom: 1.5rem;
   /* no max-width or margin:0 auto so it doesn’t center. */
