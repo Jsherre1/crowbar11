@@ -1,0 +1,817 @@
+/***********************************************************
+  Global / Reset
+************************************************************/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/***********************************************************
+  Color + Font Vars
+************************************************************/
+:root {
+  /* Basic greys & black */
+  --white: #ffffff;
+  --light-grey: #f6f5fa;
+  --medium-grey: #878787;
+  --dark-grey: #1c1c1c;
+  --black: #0b0b0b;
+
+  /* Keep lavender accent */
+  --accent-color: #8e85ff;
+  --gradient-start: #5351a8;
+  --gradient-end: #8e85ff;
+
+  /* Base background + text (light mode) */
+  --bg-color: var(--light-grey);
+  --text-color: var(--dark-grey);
+
+  --font-family: "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --border-radius: 16px;
+
+  /* Only 3 font sizes */
+  --fs-1: 1rem;
+  --fs-2: 1.25rem;
+  --fs-3: 1.5rem;
+
+  --animation-duration: 800ms;
+  --logo-animation-duration: 1000ms;
+}
+
+:root.dark-mode {
+  --bg-color: var(--black);
+  --text-color: var(--white);
+}
+
+html,
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  transition: background-color 0.6s ease, color 0.6s ease;
+  font-size: var(--fs-1);
+}
+
+/***********************************************************
+  Fades, waves, animations
+************************************************************/
+.fade-in {
+  animation: fadeIn var(--animation-duration) ease-in-out forwards;
+}
+.fade-out {
+  animation: fadeOut var(--animation-duration) ease-in-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.logo-shrink {
+  animation: logoShrink var(--logo-animation-duration) ease-in-out forwards;
+}
+@keyframes logoShrink {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.6) translateY(-30px);
+  }
+}
+
+.wave-letter {
+  display: inline-block;
+  color: var(--accent-color);
+  font-weight: 900;
+  animation: waveOneTime 0.6s ease;
+}
+@keyframes waveOneTime {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/***********************************************************
+  Theme Toggle
+************************************************************/
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+.header-right .theme-toggle {
+  transform: scale(0.75); /* 25% smaller */
+}
+
+.toggle-icon-simple {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+.toggle-track {
+  width: 50px;
+  height: 26px;
+  border-radius: 13px;
+  border: 2px solid var(--dark-grey);
+  background: transparent;
+  position: relative;
+  transition: border-color 0.3s;
+}
+:root.dark-mode .toggle-track {
+  border-color: var(--white);
+}
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--dark-grey);
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s, background 0.3s;
+}
+.toggle-track.active .toggle-thumb {
+  transform: translateX(24px);
+  background: var(--white);
+}
+.home-toggle {
+  transform: scale(0.75);
+  transform-origin: center;
+}
+
+/***********************************************************
+  Gradient Swipe
+************************************************************/
+@keyframes colorSwipe {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+.gradient-swipe {
+  background: linear-gradient(
+    120deg,
+    var(--gradient-start) 0%,
+    var(--gradient-end) 50%,
+    var(--gradient-start) 100%
+  );
+  background-size: 200% 100%;
+  animation: colorSwipe 2s ease-in-out infinite alternate;
+  font-weight: 900;
+}
+
+/***********************************************************
+  Screens
+************************************************************/
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 1rem;
+}
+.screen-footer {
+  margin-top: auto;
+  text-align: center;
+  color: var(--medium-grey);
+  font-size: var(--fs-1);
+  padding-bottom: 2rem;
+}
+.terms-text {
+  margin-bottom: 0.25rem;
+}
+copyright-text {
+  font-size: 0.9rem;
+}
+
+/***********************************************************
+  Loading Screen
+************************************************************/
+.loading-screen {
+  align-items: center;
+  justify-content: flex-start;
+}
+.loading-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logo-container {
+  transition: transform var(--logo-animation-duration) ease-in-out;
+}
+.logo {
+  width: 220px;
+  height: auto;
+}
+.powered-by-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/***********************************************************
+  Age Gate Screen
+************************************************************/
+.agegate-screen {
+  align-items: center;
+  justify-content: flex-start;
+}
+.agegate-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.agegate-main-content {
+  text-align: center;
+}
+
+/* Big Title / Smaller Sub */
+.agegate-title {
+  font-size: var(--fs-3);
+  font-weight: 900;
+  color: var(--dark-grey);
+  margin-bottom: 0.5rem;
+}
+:root.dark-mode .agegate-title {
+  color: var(--white);
+}
+.agegate-subtitle {
+  font-size: var(--fs-2);
+  margin: 0.5rem 0 2rem;
+  color: var(--medium-grey);
+}
+.agegate-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+.btn-yes {
+  font-size: var(--fs-1);
+  font-weight: 900;
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.8rem 0;
+  width: 140px;
+  text-align: center;
+  cursor: pointer;
+}
+.btn-no {
+  background: transparent;
+  color: var(--medium-grey);
+  font-size: var(--fs-1);
+  font-weight: 900;
+  border: 2px solid var(--medium-grey);
+  border-radius: var(--border-radius);
+  padding: 0.8rem 0;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* The fade/slide for the mode message. Single-line, no wrap. */
+.mode-message {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  opacity: 0;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap; /* force one line */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.mode-message.show {
+  opacity: 1;
+  transform: translate(-50%, 0%);
+}
+
+/***********************************************************
+  Home Screen
+************************************************************/
+.home-screen {
+  max-width: 700px;
+  margin: 0 auto;
+  flex: 1;
+  padding-top: 2rem;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  /* no max-width or margin:0 auto so it doesn’t center. */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.header-main-logo {
+  width: 60px;
+  height: auto;
+}
+.header-text-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: -2px;
+}
+.header-title {
+  font-size: var(--fs-2);
+  font-weight: 900;
+  margin-bottom: 0;
+  line-height: 1.1;
+}
+.header-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--fs-1);
+  color: var(--medium-grey);
+  margin-top: -2px;
+}
+.subtitle-logo {
+  width: 120px;
+  height: auto;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  /* Place icons in a row with a bit of spacing: */
+  gap: 0.5rem;
+  /* Remove or reduce anything that might push them too far right,
+     e.g. no "position: absolute" or large margin. */
+}
+
+.header-user-icon {
+  margin-right: 0rem;
+}
+.header-cart-icon {
+  /* Remove large transforms or scaling */
+  transform: none;
+  width: 60px; /* or 32px if you want it bigger */
+  height: auto;
+}
+
+/***********************************************************
+  Banner
+************************************************************/
+.banner-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+.banner-container img {
+  width: 90%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/***********************************************************
+  Delivery Info
+************************************************************/
+.delivery-section-container {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.delivery-info-flex {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.delivery-logo-col {
+  flex: 0 0 33%;
+}
+.delivery-text-col {
+  flex: 1 1 67%;
+}
+
+.arcade-logo-card {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--dark-grey);
+  border: 6px solid var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.arcade-logo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.location-title {
+  font-size: var(--fs-2);
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.arcade-info-boxes {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* White on light mode, dark grey on dark mode, 
+   with text color accordingly. */
+.info-card {
+  background: var(--white);
+  color: var(--dark-grey);
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 0.3rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  text-align: left;
+}
+:root.dark-mode .info-card {
+  background: var(--dark-grey);
+  color: var(--white);
+}
+.bing-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.25rem;
+}
+
+/***********************************************************
+  Delivery Times
+************************************************************/
+.delivery-times-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.delivery-times-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.delivery-times-title {
+  font-size: var(--fs-2);
+  font-weight: 900;
+}
+.day-range {
+  font-size: var(--fs-1);
+  color: var(--dark-grey);
+}
+:root.dark-mode .day-range {
+  color: var(--light-grey);
+}
+
+.time-carousel-controls {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+.carousel-control {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--light-grey);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+:root.dark-mode .carousel-control {
+  background: var(--dark-grey);
+  color: var(--white);
+}
+
+.time-buttons {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+.time-buttons::-webkit-scrollbar {
+  display: none;
+}
+
+.time-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.time-btn {
+  padding: 0.8rem 1.4rem;
+  border-radius: 14px;
+  color: var(--white);
+  border: none;
+  font-size: var(--fs-1);
+  font-weight: 900;
+  cursor: pointer;
+  width: 160px;
+}
+.time-btn-other {
+  background: var(--dark-grey);
+}
+:root.dark-mode .time-btn-other {
+  background: var(--light-grey);
+  color: var(--dark-grey);
+}
+.order-timer {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--medium-grey);
+}
+
+/***********************************************************
+  Product Carousels
+************************************************************/
+.products-section {
+  margin-bottom: 2rem;
+}
+.product-carousel-container {
+  margin-bottom: 2rem;
+}
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.category-title {
+  font-size: var(--fs-2);
+  font-weight: 900;
+}
+.carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+.product-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+.product-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  min-width: 160px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  height: 240px;
+  background-color: var(--white);
+}
+:root.dark-mode .product-card {
+  background-color: var(--dark-grey);
+}
+
+/* 50% smaller than previous 20px => now 10px, opacity .5 */
+.product-badge {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+}
+.product-badge img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.75rem;
+}
+.product-image-container {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+}
+:root.dark-mode .product-image-container {
+  background-color: var(--dark-grey);
+}
+.product-image {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+.product-info {
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+}
+.product-category {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: var(--medium-grey);
+}
+.product-title {
+  font-size: var(--fs-1);
+  font-weight: 900;
+  margin-bottom: 0.25rem;
+}
+.product-brand {
+  font-size: 0.8rem;
+  color: var(--medium-grey);
+  margin-top: auto;
+}
+.divider-line {
+  height: 1px;
+  margin: 1.5rem auto;
+  background: var(--dark-grey);
+  max-width: 700px; /* or match your map width */
+  width: 100%;
+}
+:root.dark-mode .divider-line {
+  background: var(--light-grey);
+}
+
+.price-tag {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-grey);
+  color: var(--dark-grey);
+}
+:root.dark-mode .price-tag {
+  background: var(--black);
+  color: var(--white);
+}
+
+/***********************************************************
+  Local Section
+************************************************************/
+.local-section-wrapper {
+  margin-bottom: 2rem;
+}
+.local-text-container h2,
+.local-text-container h3 {
+  font-weight: 900;
+}
+.local-text-container p {
+  font-size: var(--fs-1);
+  line-height: 1.4;
+}
+
+/***********************************************************
+  Map Section
+************************************************************/
+.map-section {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.custom-map-marker .arcade-pin {
+  background: var(--dark-grey);
+  border: 2px solid var(--white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.map-container .map-placeholder {
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/***********************************************************
+  Just Breathe Logo at bottom
+************************************************************/
+.just-breathe-logo-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.cannabis-store-subtitle {
+  margin-top: 0.5rem;
+  font-size: var(--fs-1);
+  color: var(--medium-grey);
+}
+
+/***********************************************************
+  Home Disclaimer
+************************************************************/
+.home-disclaimer {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--medium-grey);
+  line-height: 1.5;
+  padding: 0 1rem;
+}
+
+/***********************************************************
+  Floating cart icon
+  25% bigger => from 60px -> 75px, plus overlap accent circle
+************************************************************/
+.floating-cart {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+:root.dark-mode .floating-cart {
+  background: var(--dark-grey);
+}
+.floating-cart img {
+  width: 44px; /* a bit bigger for the main icon */
+  height: 44px;
+}
+
+/* Overlapping accent circle bottom-left */
+.cart-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-25%, 25%);
+  background: var(--accent-color);
+  color: var(--white);
+  font-weight: 900;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
